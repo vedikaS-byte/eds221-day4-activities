@@ -1,0 +1,36 @@
+---
+title: "oops_and_functions"
+format: html
+---
+
+# Day 4: Task & Activities
+
+## For loops
+
+#### Task 1
+
+```{r}
+# Create two sequences, one called weekdays that contains days of the week (“Monday”, “Tuesday”, “Wednesday”, etc.) and one called transects that contains the series of transect names “Transect A”, “Transect B,”Transect C”. Write a nested for loop that creates a matrix containing the following:
+weekdays <- c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday")
+transect_1 <- c("Transect A", "Transect B", "Transect C") 
+
+weekday_transects <- matrix(nrow = length(weekdays), ncol = length(transect_1))
+library(stringr)
+weekday_transects <- matrix(nrow = length(weekdays), ncol = length(transects))
+
+
+for(i in seq_along(weekdays)) {
+  for(i in seq_along(transect_1)) {
+  #   if(stringr::str_detect(i, "A")){
+  #       weekday_transects <- paste(weekdays[i], "-", transect_1[i])
+  #   } else if (stringr::str_detect(i, "B")){
+  #       weekday_transects <- paste(weekdays[i], "-", transect_1[i])
+  # }
+  # weekday_transects <- as.matrix(weekday_transects)
+    weekday_transects <- paste(weekdays[i], "-", transect_1[[i]])
+   weekday_transect <- weekday_transects[i]
+}}
+weekday_transects
+
+
+```
