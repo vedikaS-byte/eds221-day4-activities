@@ -65,28 +65,10 @@ fish_weight <- function(fish_name, tot_length){
  W = parameters$a_est*(tot_length^parameters$b_est)
   print(W)  
 }
-fish_weight("Great barracuda", 10)
+fish_weight("Great barracuda", tot_length = c(0:100))
 
 # Now, try creating a vector of lengths (e.g. 0 to 100, by increments of 1) and ensuring that your function will calculate the fish weight over a range of lengths for the given species (try this for milkfish, storing the output weights as milkfish_weights.
 
-fish_lengths <- seq(from = 0, to = 100, by =1 )
-fish_weights_store <- vector(mode = "numeric", length = length(fish_lengths))
-fish_weight_2 <- function(fish_name, fish_lengths){
-#subset to only keep rows where column_name matches fish_name, otherwise it will consider milkfish for all three (returns three calculations for other species)!
-  parameters <- fish_parms[fish_parms$common_name == fish_name, ] # keep columns, but subset for rows that match argument
-  for(i in seq_along(parameters)) {
-  for(j in seq_along(fish_lengths)) {
-  # fish_weights_store[i] <- parameters$a_est*(fish_lengths[i]^parameters$b_est)
-    W  <- fish_weight(fish_name, tot_length = fish_lengths[i])
-   fish_weights_store[i] <- W
-     break
-  print(fish_weights_store)  
-}
-  } 
-}
-
-
-fish_weight_2(fish_name = "Milkfish", fish_lengths)
 
 ```
 
@@ -96,23 +78,38 @@ fish_weight_2(fish_name = "Milkfish", fish_lengths)
 # Write a function called wave_power that calculates potential ocean wave power given inputs of wave height and period.
 # 
 
-wave_heights <- seq(from = 0, to = 3, by = .2)
+#wave_heights <- seq(from = 0, to = 3, by = .2)
 # wave_range <- max(h) - min(h)
-wave_powers <- vector(mode = "numeric", length = length(wave_heights))
-wave_power <- function(h,t){
-  for(i in seq_along(h)){
-   p <- 0.5*(h)^2*(t)
-     wave_powers[i] <- p 
-     return(wave_powers[i])
-  }
-   
-}
+# wave_heights <- seq(from = 0, to = 3, by = .2)
+# # wave_range <- max(h) - min(h)
+# 
+# # wave_powers <- vector(mode = "numeric", length = length(wave_heights))
+# 
+# wave_powers <- vector(mode = "numeric", length = length(wave_heights))
 
-wawave_power(wave_heights, 8)
+# wave_power <- function(h,t){
+#   for(i in seq_along(h)){
+#    p <- 0.5*(h)^2*(t)
+#      wave_powers[i] <- p 
+#      return(wave_powers[i])
+#   }
+# }
+
+
+wave_power <- function(h,t){
+   p <- 0.5*(h)^2*(t)
+   return(p)
+  }
+
+
+
+pwr <- wave_power(h= seq(from = 0, to = 3, by = .2), 8)
+pwr[2]
+pwr[[2]]
+
+
 
 # Use your wave_power function to approximate wave power for a period of 8 seconds, over a range of wave heights from 0 to 3 meters by increments of 0.2 meters.
-
-
 
 
 ```
