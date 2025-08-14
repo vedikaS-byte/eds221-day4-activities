@@ -56,14 +56,20 @@ fish_parms <- data.frame(sci_name = c("Chanos chanos", "Sphyraena barracuda", "C
 head(fish_parms)
 
 fish_weight <- function(fish_name, tot_length){
-#subset to only keep rows where column_name matches fish_name, otherwise considers milkfish for all three!
-  parameters <- fish_parms[fish_parms$common_name == fish_name, ]
+#subset to only keep rows where column_name matches fish_name, otherwise considers milkfish for all three (returns three calculations for other species)!
+  parameters <- fish_parms[fish_parms$common_name == fish_name, ] # keep columns, but subset for rows that match argument
     # W = fish_parms$a_est*(tot_length^fish_parms$b_est)
  W = parameters$a_est*(tot_length^parameters$b_est)
   print(W)  
 
 }
 fish_weight("Milkfish", 10)
+
+# Now, try creating a vector of lengths (e.g. 0 to 100, by increments of 1) and ensuring that your function will calculate the fish weight over a range of lengths for the given species (try this for milkfish, storing the output weights as milkfish_weights.
+
+
+
+
 
 ```
 
