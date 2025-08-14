@@ -40,7 +40,7 @@ weekday_transects
 #  (recall: F = ma
 # ), and returns a statement “The resulting force is ___ Newtons.”
 force <- function(mass, acceleration) {
-  print(paste("The result force is" ,mass*acceleration, "Newtons."))
+  print(paste("The result force is" , mass*acceleration, "Newtons."))
 }
 
 force(10,20)
@@ -61,11 +61,27 @@ fish_weight <- function(fish_name, tot_length){
     # W = fish_parms$a_est*(tot_length^fish_parms$b_est)
  W = parameters$a_est*(tot_length^parameters$b_est)
   print(W)  
-
 }
 fish_weight("Milkfish", 10)
 
+
 # Now, try creating a vector of lengths (e.g. 0 to 100, by increments of 1) and ensuring that your function will calculate the fish weight over a range of lengths for the given species (try this for milkfish, storing the output weights as milkfish_weights.
+
+fish_lengths <- seq(from = 0, to = 100, by =1 )
+fish_weights_store <- vector(mode = "numeric", length = length(fish_lengths))
+fish_weight_2 <- function(fish_name, fish_lengths){
+#subset to only keep rows where column_name matches fish_name, otherwise considers milkfish for all three (returns three calculations for other species)!
+  parameters <- fish_parms[fish_parms$common_name == fish_name, ] # keep columns, but subset for rows that match argument
+  for(i in seq_along(fish_lengths)) {
+  tot_length = fish_lengths[i]
+ # W = parameters$a_est*(tot_length^parameters$b_est)
+  fish_weights_store[i] <- parameters$a_est*(tot_length^parameters$b_est)
+  print(fish_weights_store)  
+  break
+}
+}
+
+fish_weight_2("Milkfish", fish_lengths)
 
 
 
@@ -73,4 +89,35 @@ fish_weight("Milkfish", 10)
 
 ```
 
+#### Task 4
+```{r}
+# Write a function called wave_power that calculates potential ocean wave power given inputs of wave height and period.
+# 
+
+wave_heights <- seq(from = 0, to = 3, by = .2)
+# wave_range <- max(h) - min(h)
+wave_powers <- vector(mode = "numeric", length = length(wave_heights))
+wave_power <- function(h,t){
+  for(i in seq_along(h)){
+   wave_heights[i] <- 0.5*(h)^2*(t)
+     wave_powers[i] <- wave_heights[i] 
+  }
+   print(wave_powers)
+}
+
+wave_power(wave_heights, 8)
+# Use your wave_power function to approximate wave power for a period of 8 seconds, over a range of wave heights from 0 to 3 meters by increments of 0.2 meters.
+
+
+
+
+```
+
+
+# Additional practice and notes
+
+
+```{r}
+
+```
 
