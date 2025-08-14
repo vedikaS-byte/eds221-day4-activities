@@ -16,21 +16,55 @@ transect_1 <- c("Transect A", "Transect B", "Transect C")
 
 weekday_transects <- matrix(nrow = length(weekdays), ncol = length(transect_1))
 library(stringr)
-weekday_transects <- matrix(nrow = length(weekdays), ncol = length(transects))
 
+for(m in seq_along(weekdays)) {
+  for(n in seq_along(transect_1)) {
+       weekday_transects[m, n] <- paste(weekdays[m], "-", transects[n])
 
-for(i in seq_along(weekdays)) {
-  for(i in seq_along(transect_1)) {
   #   if(stringr::str_detect(i, "A")){
   #       weekday_transects <- paste(weekdays[i], "-", transect_1[i])
   #   } else if (stringr::str_detect(i, "B")){
   #       weekday_transects <- paste(weekdays[i], "-", transect_1[i])
   # }
   # weekday_transects <- as.matrix(weekday_transects)
-    weekday_transects <- paste(weekdays[i], "-", transect_1[[i]])
-   weekday_transect <- weekday_transects[i]
 }}
 weekday_transects
 
 
 ```
+
+# Introducing Functions
+```{r}
+# Write a function called force that calculates a force (in Newtons), given inputs of mass (in kg) and acceleration (in m/s^2)
+#  
+#  (recall: F = ma
+# ), and returns a statement “The resulting force is ___ Newtons.”
+force <- function(mass, acceleration) {
+  print(paste("The result force is" ,mass*acceleration, "Newtons."))
+}
+
+force(10,20)
+
+```
+#### Task 3
+```{r}
+# The length:weight relationship for fish is: 
+# , where where L is total fish length (centimeters), W is the expected fish weight (grams), and a and b are species-dependent parameter values (shown below for several fish from Peyton et al. 2016).
+
+fish_parms <- data.frame(sci_name = c("Chanos chanos", "Sphyraena barracuda", "Caranx ignobilis"), common_name = c("Milkfish", "Great barracuda", "Giant trevally"), a_est = c(0.095,0.0181, 0.0353), b_est = c(2.52, 3.27,3.05))
+
+head(fish_parms)
+
+fish_weight <- function(fish_name, tot_length){
+#subset to only keep rows where column_name matches fish_name, otherwise considers milkfish for all three!
+  parameters <- fish_parms[fish_parms$common_name == fish_name, ]
+    # W = fish_parms$a_est*(tot_length^fish_parms$b_est)
+ W = parameters$a_est*(tot_length^parameters$b_est)
+  print(W)  
+
+}
+fish_weight("Milkfish", 10)
+
+```
+
+
