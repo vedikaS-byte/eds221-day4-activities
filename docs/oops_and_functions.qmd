@@ -19,7 +19,7 @@ library(stringr)
 
 for(m in seq_along(weekdays)) {
   for(n in seq_along(transect_1)) {
-       weekday_transects[m, n] <- paste(weekdays[m], "-", transects[n])
+       weekday_transects[m, n] <- paste(weekdays[m], "-", transect_1[n])
 
   #   if(stringr::str_detect(i, "A")){
   #       weekday_transects <- paste(weekdays[i], "-", transect_1[i])
@@ -65,30 +65,28 @@ fish_weight <- function(fish_name, tot_length){
  W = parameters$a_est*(tot_length^parameters$b_est)
   print(W)  
 }
-fish_weight("Milkfish", 10)
-
+fish_weight("Great barracuda", 10)
 
 # Now, try creating a vector of lengths (e.g. 0 to 100, by increments of 1) and ensuring that your function will calculate the fish weight over a range of lengths for the given species (try this for milkfish, storing the output weights as milkfish_weights.
 
 fish_lengths <- seq(from = 0, to = 100, by =1 )
 fish_weights_store <- vector(mode = "numeric", length = length(fish_lengths))
 fish_weight_2 <- function(fish_name, fish_lengths){
-#subset to only keep rows where column_name matches fish_name, otherwise considers milkfish for all three (returns three calculations for other species)!
+#subset to only keep rows where column_name matches fish_name, otherwise it will consider milkfish for all three (returns three calculations for other species)!
   parameters <- fish_parms[fish_parms$common_name == fish_name, ] # keep columns, but subset for rows that match argument
-  for(i in seq_along(fish_lengths)) {
-  tot_length = fish_lengths[i]
- # W = parameters$a_est*(tot_length^parameters$b_est)
-  fish_weights_store[i] <- parameters$a_est*(tot_length^parameters$b_est)
+  for(i in seq_along(parameters)) {
+  for(j in seq_along(fish_lengths)) {
+  # fish_weights_store[i] <- parameters$a_est*(fish_lengths[i]^parameters$b_est)
+    W  <- fish_weight(fish_name, tot_length = fish_lengths[i])
+   fish_weights_store[i] <- W
+     break
   print(fish_weights_store)  
-  break
 }
+  } 
 }
 
-fish_weight_2("Milkfish", fish_lengths)
 
-
-
-
+fish_weight_2(fish_name = "Milkfish", fish_lengths)
 
 ```
 
@@ -170,6 +168,50 @@ if(!animal %in% c("dog", "goat")) {
 
 animal_age_stop(animal = "dog", age = "yellow")
 animal_age_stop(animal = "goat", age = 100)
+
+df_means <- function(df) {
+for(i in 1:ncol(df)){
+  # all the data frames in function are called df
+  if(is.numeric(df[[i]])) {
+    col_name <- colnames(df[i]) # find these #step through each column
+col_mean <- mean(df[[i]], na.rm = T)
+print(paste("The mean value", col_name, "is", col_mean))
+  }
+
+# if(!is.numeric(col_mean)) {
+#   warning("This is not a numeric!")
+# }
+# }
+}
+  }
+
+df_means(df = mtcars)
+df_means(df = palmerpenguins::penguins )
+
+
+#logistic growth example
+logistic_growth <- function(N_0, k, r, t) {
+  Nt <- k/(1+((k-N_0)/N_0)*exp(-r*t))
+  print(Nt)
+}
+
+logistic_growth(N_0 = 100, )
+
+time_vec<- seq(from = 0, to = 35, by = .01)
+# apply to this vector
+pop_35 <- logistic_growth(100, k = 6000, r = 0.27, t= time_vec)
+pop_time_35 <- data.frame(time_vec, pop_35)
+
+library(ggplot2)
+pop_time_35 |> ggplot(aes(x = time_vec, y = pop_35)) + geom_line()
+
+#preallocated storage for output
+pop_35_vec <- vector(mode = "numeric", length = length(time_vec))
+#stepping through time steps
+for(i in seq_along(time_vec)){
+population <- logistic_growth(100, 6000, .27, time_vec[i])
+pop_35_vec[i] <- population
+}
 
 
 
